@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import EnrolledCourseCard from '@/components/Courses/EnrolledCourseCard';
 import { Course } from '@/lib/types/courseType';
 import { getEnrolledCourseIds, getCourseById } from '@/lib/api/Courses';
+import StreakHistory from '@/components/StreakHistory';
 
 export default function EnrolledCoursePage() {
     const [enrolledCourses, setEnrolledCourses] = useState<Course[]>([]);
@@ -48,6 +49,15 @@ export default function EnrolledCoursePage() {
     
 
         <div className="container mx-auto px-4 py-8">
+            {/* Streak Calendar Section */}
+            <div className="mb-8">
+                <StreakHistory />
+            </div>
+
+            {/* Enrolled Courses Section */}
+            <h2 className="text-2xl font-bold text-gray-800 mb-6">
+                📚 My Enrolled Courses
+            </h2>
             {err && <p className="text-red-500">{err}</p>}
             {enrolledCourses.length === 0 ? (
                 <p className="text-gray-500">

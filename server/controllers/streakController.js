@@ -232,11 +232,11 @@ export const getMyBadges = async (req, res) => {
       .select({
         id: userBadges.id,
         badge_id: badges.id,
-        name: badges.name,
+        name: badges.badge_name,
         description: badges.description,
         milestone_days: badges.milestone_days,
-        icon_emoji: badges.icon_emoji,
-        color: badges.color,
+        icon_emoji: badges.badge_shape,
+        color: badges.animation_type,
         earned_at: userBadges.earned_at,
         is_new: userBadges.is_new,
       })
@@ -312,16 +312,16 @@ export const getStreakHistory = async (req, res) => {
 export const initializeBadges = async (req, res) => {
   try {
     const defaultBadges = [
-      { name: "First Step", description: "Started your learning journey!", milestone_days: 1, icon_emoji: "🔥", color: "#FF6B6B" },
-      { name: "Week Warrior", description: "7 days of consistent learning", milestone_days: 7, icon_emoji: "⭐", color: "#4ECDC4" },
-      { name: "Consistency Champion", description: "14 days streak achieved", milestone_days: 14, icon_emoji: "💎", color: "#45B7D1" },
-      { name: "Habit Former", description: "21 days of dedication", milestone_days: 21, icon_emoji: "🏆", color: "#FFA07A" },
-      { name: "Monthly Master", description: "30 days of continuous learning", milestone_days: 30, icon_emoji: "🚀", color: "#98D8C8" },
-      { name: "Learning Legend", description: "60 days of unwavering commitment", milestone_days: 60, icon_emoji: "🌟", color: "#FFD700" },
-      { name: "Dedication King", description: "90 days of excellence", milestone_days: 90, icon_emoji: "👑", color: "#9B59B6" },
-      { name: "Century Club", description: "100 days of mastery", milestone_days: 100, icon_emoji: "💯", color: "#E74C3C" },
-      { name: "Half Year Hero", description: "180 days of perseverance", milestone_days: 180, icon_emoji: "🦸", color: "#3498DB" },
-      { name: "Annual Achiever", description: "365 days of dedication!", milestone_days: 365, icon_emoji: "🎓", color: "#F39C12" },
+      { badge_name: "First Step", description: "Started your learning journey!", milestone_days: 1, badge_shape: "🔥", animation_type: "#FF6B6B" },
+      { badge_name: "Week Warrior", description: "7 days of consistent learning", milestone_days: 7, badge_shape: "⭐", animation_type: "#4ECDC4" },
+      { badge_name: "Consistency Champion", description: "14 days streak achieved", milestone_days: 14, badge_shape: "💎", animation_type: "#45B7D1" },
+      { badge_name: "Habit Former", description: "21 days of dedication", milestone_days: 21, badge_shape: "🏆", animation_type: "#FFA07A" },
+      { badge_name: "Monthly Master", description: "30 days of continuous learning", milestone_days: 30, badge_shape: "🚀", animation_type: "#98D8C8" },
+      { badge_name: "Learning Legend", description: "60 days of unwavering commitment", milestone_days: 60, badge_shape: "🌟", animation_type: "#FFD700" },
+      { badge_name: "Dedication King", description: "90 days of excellence", milestone_days: 90, badge_shape: "👑", animation_type: "#9B59B6" },
+      { badge_name: "Century Club", description: "100 days of mastery", milestone_days: 100, badge_shape: "💯", animation_type: "#E74C3C" },
+      { badge_name: "Half Year Hero", description: "180 days of perseverance", milestone_days: 180, badge_shape: "🦸", animation_type: "#3498DB" },
+      { badge_name: "Annual Achiever", description: "365 days of dedication!", milestone_days: 365, badge_shape: "🎓", animation_type: "#F39C12" },
     ];
 
     // Check if badges already exist

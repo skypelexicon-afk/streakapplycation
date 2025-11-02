@@ -20,6 +20,7 @@ import progressRouter from "./routes/progressRoutes.js";
 import razorpaywhRoutes from "./webhooks/razorpay-wh.js";
 import notificationRouter from "./routes/notificationRoutes.js";
 import anncRouter from "./routes/genAnnouncementRoutes.js";
+import streakRouter from "./routes/streakRoutes.js";
 
 
 dotenv.config();
@@ -93,6 +94,7 @@ app.use("/api/free-pdfs", pdfRouter);
 app.use("/api/progress", progressRouter);
 app.use("/api/notifications", notificationRouter);
 app.use("/api/general-announcements", anncRouter);
+app.use("/api/streaks", streakRouter);
 
 // app.listen(3000, () => {
 //   console.log("Server running on http://localhost:3000");

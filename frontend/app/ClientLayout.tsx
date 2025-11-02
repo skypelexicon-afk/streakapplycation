@@ -16,6 +16,7 @@ import EducatorDashboardNav from '@/components/Navbar/DashboardNav/EducatorDashN
 import AdminNavbar from '@/components/Navbar/AdminNav';
 import StudentDashboardNav from '@/components/Navbar/DashboardNav/StudentDashNav';
 import StudentNavbar from '@/components/Navbar/StudentNav';
+import StreakWidget from '@/components/StreakWidget';
 
 export default function ClientLayout({
     children,
@@ -85,6 +86,7 @@ export default function ClientLayout({
                     {showSignupModal && <SignupModal />}
                 </StudentDashboardNav>
                 <Footer />
+                <StreakWidget userId={user?.id} />
             </>
         );
     }
@@ -133,6 +135,7 @@ export default function ClientLayout({
             {showLoginModal && <LoginModal />}
             {showSignupModal && <SignupModal />}
             {showForgotPasswordModal && <ForgotPasswordModal />}
+            {user?.role === 'student' && <StreakWidget userId={user?.id} />}
         </>
     );
 }

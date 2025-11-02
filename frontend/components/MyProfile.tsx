@@ -4,6 +4,8 @@ import Image from 'next/image';
 import { useAuthStore } from '@/store/useAuthStore';
 import { FaEdit, FaCameraRetro, FaSave } from 'react-icons/fa';
 import { fetchApi } from '@/lib/doFetch';
+import { getMyBadges, Badge } from '@/lib/api/Streaks';
+import BadgeCard from '@/components/BadgeCard';
 
 export default function MyProfile() {
     const { user } = useAuthStore();
@@ -15,6 +17,25 @@ export default function MyProfile() {
         phone: user?.phone || '',
         university: user?.university || '',
     });
+    const [badges, setBadges] = React.useState<Badge[]>([]);
+    const [loadingBadges, setLoadingBadges] = React.useState(true);
+
+    React.useEffect(() => {
+        const fetchBadges = async () => {
+            try {
+                const userBadges = await getMyBadges();
+                setBadges(userBadges);
+            } catch (error) {
+                console.error('Error fetching badges:', error);
+            } finally {
+                setLoadingBadges(false);
+            }
+        };
+
+        if (user) {
+            fetchBadges();
+        }
+    }, [user]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -58,7 +79,7 @@ export default function MyProfile() {
         }`;
 
     return (
-        <div className="flex justify-center items-center">
+        <div className="flex flex-col justify-center items-center">
             <div //className="flex flex-col md:flex-row items-center justify-center max-w-3xl px-4 py-2 shadow-lg bg-white rounded-lg w-full gap-4 border border-gray-200"
             className="flex flex-col md:flex-row items-center justify-center max-w-3xl px-4 py-2 shadow-lg bg-yellow-800 text-yellow-800 rounded-lg w-full gap-4 border border-yellow-200">
                 <div className="relative inline-block">
@@ -220,6 +241,30 @@ export default function MyProfile() {
                         </li>
                     </ul>
                 </div>
+            </div>
+
+            {/* Badges Section */}
+            <div className="mt-8 w-full max-w-5xl">
+                <h2 className="text-2xl font-bold text-gray-800 mb-4">
+                    🏆 My Badges
+                </h2>
+                {loadingBadges ? (
+                    <div className="flex justify-center items-center py-12">
+                        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500" />
+                    </div>
+                ) : badges.length === 0 ? (
+                    <div className="bg-gray-50 rounded-lg p-8 text-center">
+                        <p className="text-gray-500">
+                            No badges earned yet. Keep learning to unlock badges! 🚀
+                        </p>
+                    </div>
+                ) : (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {badges.map((badge, index) => (
+                            <BadgeCard key={badge.id} badge={badge} index={index} />
+                        ))}
+                    </div>
+                )}
             </div>
         </div>
     );
